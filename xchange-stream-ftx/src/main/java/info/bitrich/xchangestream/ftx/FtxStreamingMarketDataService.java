@@ -9,19 +9,18 @@ import org.knowm.xchange.dto.marketdata.Trade;
 
 public class FtxStreamingMarketDataService implements StreamingMarketDataService {
 
+  @Override
+  public Observable<OrderBook> getOrderBook(CurrencyPair currencyPair, Object... args) {
+    return null;
+  }
 
-    @Override
-    public Observable<OrderBook> getOrderBook(CurrencyPair currencyPair, Object... args) {
-        return null;
-    }
+  @Override
+  public Observable<Ticker> getTicker(CurrencyPair currencyPair, Object... args) {
+    return null;
+  }
 
-    @Override
-    public Observable<Ticker> getTicker(CurrencyPair currencyPair, Object... args) {
-        return null;
-    }
-
-    @Override
-    public Observable<Trade> getTrades(CurrencyPair currencyPair, Object... args) {
-        return null;
-    }
+  @Override
+  public Observable<Trade> getTrades(CurrencyPair currencyPair, Object... args) {
+    return null;
+  }
 }

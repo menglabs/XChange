@@ -7,10 +7,7 @@ import java.util.stream.Collectors;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order.OrderType;
-import org.knowm.xchange.dto.marketdata.OrderBook;
-import org.knowm.xchange.dto.marketdata.Ticker;
-import org.knowm.xchange.dto.marketdata.Trade;
-import org.knowm.xchange.dto.marketdata.Trades;
+import org.knowm.xchange.dto.marketdata.*;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.exceptions.ExchangeException;
 import org.knowm.xchange.huobi.HuobiAdapters;
@@ -33,6 +30,11 @@ public class HuobiMarketDataService extends HuobiMarketDataServiceRaw implements
   @Override
   public List<Ticker> getTickers(Params params) throws IOException {
     return HuobiAdapters.adaptAllTickers(getHuobiAllTickers());
+  }
+
+  @Override
+  public List<Kline> getKlines(CurrencyPair currencyPair, Object... args) throws IOException {
+    return HuobiAdapters.adaptAllKlines(getHuobiKlines(currencyPair), currencyPair);
   }
 
   @Override

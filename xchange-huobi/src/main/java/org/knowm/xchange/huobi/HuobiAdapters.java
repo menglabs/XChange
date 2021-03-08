@@ -13,6 +13,7 @@ import org.knowm.xchange.dto.account.Balance;
 import org.knowm.xchange.dto.account.FundingRecord;
 import org.knowm.xchange.dto.account.FundingRecord.Status;
 import org.knowm.xchange.dto.account.Wallet;
+import org.knowm.xchange.dto.marketdata.Kline;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.marketdata.Trades.TradeSortType;
 import org.knowm.xchange.dto.meta.CurrencyMetaData;
@@ -30,10 +31,7 @@ import org.knowm.xchange.exceptions.ExchangeException;
 import org.knowm.xchange.huobi.dto.account.HuobiBalanceRecord;
 import org.knowm.xchange.huobi.dto.account.HuobiBalanceSum;
 import org.knowm.xchange.huobi.dto.account.HuobiFundingRecord;
-import org.knowm.xchange.huobi.dto.marketdata.HuobiAllTicker;
-import org.knowm.xchange.huobi.dto.marketdata.HuobiAsset;
-import org.knowm.xchange.huobi.dto.marketdata.HuobiAssetPair;
-import org.knowm.xchange.huobi.dto.marketdata.HuobiTicker;
+import org.knowm.xchange.huobi.dto.marketdata.*;
 import org.knowm.xchange.huobi.dto.trade.HuobiOrder;
 
 public class HuobiAdapters {
@@ -52,6 +50,25 @@ public class HuobiAdapters {
     builder.timestamp(huobiTicker.getTs());
     builder.currencyPair(currencyPair);
     return builder.build();
+  }
+
+  public static List<Kline> adaptAllKlines(HuobiAllKline[] huobiKlines, CurrencyPair currencyPair) {
+    return Arrays.stream(huobiKlines)
+        .map(
+            huobiKline ->
+                new Kline.Builder()
+                    .id(huobiKline.getId())
+                    .open(huobiKline.getOpen())
+                    .high(huobiKline.getHigh())
+                    .low(huobiKline.getLow())
+                    .close(huobiKline.getClose())
+                    .volume(huobiKline.getAmount())
+                    .quoteVolume(huobiKline.getVol())
+                    .count(huobiKline.getCount())
+                    .timestamp(huobiKline.getTs())
+                    .currencyPair(currencyPair)
+                    .build())
+        .collect(Collectors.toList());
   }
 
   public static List<Ticker> adaptAllTickers(HuobiAllTicker[] allTickers) {

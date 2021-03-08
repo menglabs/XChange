@@ -20,12 +20,7 @@ import org.knowm.xchange.huobi.dto.account.results.HuobiFeeRateResult;
 import org.knowm.xchange.huobi.dto.account.results.HuobiFundingHistoryResult;
 import org.knowm.xchange.huobi.dto.account.results.HuobiTransactFeeRateResult;
 import org.knowm.xchange.huobi.dto.account.results.HuobiWithdrawFeeRangeResult;
-import org.knowm.xchange.huobi.dto.marketdata.results.HuobiAllTickersResult;
-import org.knowm.xchange.huobi.dto.marketdata.results.HuobiAssetPairsResult;
-import org.knowm.xchange.huobi.dto.marketdata.results.HuobiAssetsResult;
-import org.knowm.xchange.huobi.dto.marketdata.results.HuobiDepthResult;
-import org.knowm.xchange.huobi.dto.marketdata.results.HuobiTickerResult;
-import org.knowm.xchange.huobi.dto.marketdata.results.HuobiTradesResult;
+import org.knowm.xchange.huobi.dto.marketdata.results.*;
 import org.knowm.xchange.huobi.dto.trade.HuobiCreateOrderRequest;
 import org.knowm.xchange.huobi.dto.trade.results.HuobiCancelOrderResult;
 import org.knowm.xchange.huobi.dto.trade.results.HuobiMatchesResult;
@@ -45,6 +40,14 @@ public interface Huobi {
   @GET
   @Path("market/tickers")
   HuobiAllTickersResult getAllTickers() throws IOException;
+
+  @GET
+  @Path("market/history/kline")
+  HuobiAllKlineResult getKlines(
+      @QueryParam("symbol") String symbol,
+      @QueryParam("period") String period,
+      @QueryParam("size") int size)
+      throws IOException;
 
   @GET
   @Path("market/depth")

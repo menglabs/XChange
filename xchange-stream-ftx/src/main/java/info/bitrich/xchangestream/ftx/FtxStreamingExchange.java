@@ -8,36 +8,33 @@ import org.knowm.xchange.ftx.FtxExchange;
 
 public class FtxStreamingExchange extends FtxExchange implements StreamingExchange {
 
-    private final String API_URI = "wss://ftx.com/ws/";
+  private final String API_URI = "wss://ftx.com/ws/";
 
+  @Override
+  protected void initServices() {
+    super.initServices();
+  }
 
-    @Override
-    protected void initServices() {
-        super.initServices();
-    }
+  @Override
+  public Completable connect(ProductSubscription... args) {
+    return null;
+  }
 
-    @Override
-    public Completable connect(ProductSubscription... args) {
-        return null;
-    }
+  @Override
+  public Completable disconnect() {
+    return null;
+  }
 
-    @Override
-    public Completable disconnect() {
-        return null;
-    }
+  @Override
+  public boolean isAlive() {
+    return false;
+  }
 
-    @Override
-    public boolean isAlive() {
-        return false;
-    }
+  @Override
+  public StreamingMarketDataService getStreamingMarketDataService() {
+    return null;
+  }
 
-    @Override
-    public StreamingMarketDataService getStreamingMarketDataService() {
-        return null;
-    }
-
-    @Override
-    public void useCompressedMessages(boolean compressedMessages) {
-
-    }
+  @Override
+  public void useCompressedMessages(boolean compressedMessages) {}
 }

@@ -184,15 +184,15 @@ public class FtxAdapters {
 
   public static FtxOrderRequestPayload adaptMarketOrderToFtxOrderPayload(MarketOrder marketOrder) {
     return new FtxOrderRequestPayload(
-            adaptCurrencyPairToFtxMarket(marketOrder.getCurrencyPair()),
-            adaptOrderTypeToFtxOrderSide(marketOrder.getType()),
-            null,
-            FtxOrderType.market,
-            marketOrder.getOriginalAmount(),
-            marketOrder.hasFlag(FtxOrderFlags.REDUCE_ONLY),
-            marketOrder.hasFlag(FtxOrderFlags.IOC),
-            marketOrder.hasFlag(FtxOrderFlags.POST_ONLY),
-            marketOrder.getUserReference());
+        adaptCurrencyPairToFtxMarket(marketOrder.getCurrencyPair()),
+        adaptOrderTypeToFtxOrderSide(marketOrder.getType()),
+        null,
+        FtxOrderType.market,
+        marketOrder.getOriginalAmount(),
+        marketOrder.hasFlag(FtxOrderFlags.REDUCE_ONLY),
+        marketOrder.hasFlag(FtxOrderFlags.IOC),
+        marketOrder.hasFlag(FtxOrderFlags.POST_ONLY),
+        marketOrder.getUserReference());
   }
 
   public static Trades adaptTrades(List<FtxTradeDto> ftxTradeDtos, CurrencyPair currencyPair) {

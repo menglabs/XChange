@@ -2,6 +2,7 @@ package info.bitrich.xchangestream.core;
 
 import io.reactivex.Observable;
 import org.knowm.xchange.currency.CurrencyPair;
+import org.knowm.xchange.dto.marketdata.Kline;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.marketdata.Trade;
@@ -33,6 +34,8 @@ public interface StreamingMarketDataService {
    * @return {@link Observable} that emits {@link Ticker} when exchange sends the update.
    */
   Observable<Ticker> getTicker(CurrencyPair currencyPair, Object... args);
+
+  Observable<Kline> getKline(CurrencyPair currencyPair, Object... args);
 
   /**
    * Get the trades performed by the exchange. Emits {@link

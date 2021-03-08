@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
+import org.knowm.xchange.dto.marketdata.Kline;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.marketdata.Trade;
@@ -99,6 +100,46 @@ public class HuobiStreamingMarketDataService implements StreamingMarketDataServi
               tickerBuilder.volume(amount);
               tickerBuilder.quoteVolume(vol);
               return tickerBuilder.build();
+            });
+  }
+
+  @Override
+  public Observable<Kline> getKline(CurrencyPair currencyPair, Object... args) {
+    String channelName =
+        "market."
+            + HuobiUtils.createHuobiCurrencyPair(currencyPair)
+            + ".kline."
+            + (args.length == 0 ? "5min" : args[0].toString());
+
+    return streamingService
+        .subscribeChannel(channelName)
+        .map(
+            message -> {
+              JsonNode data = message.get("tick");
+              Date ts = new Date(message.get("ts").longValue());
+              long id = data.get("id").longValue();
+              BigDecimal amount = data.get("amount").decimalValue(); // 成交量
+              BigDecimal open = data.get("open").decimalValue(); // 开盘价
+              BigDecimal close = data.get("close").decimalValue(); // 收盘价,当K线为最晚的一根时，是最新成交价
+              BigDecimal low = data.get("low").decimalValue(); // 最低价
+              BigDecimal high = data.get("high").decimalValue(); // 最高价
+
+              Integer count = data.get("count").intValue(); // 成交笔数
+              BigDecimal vol = data.get("vol").decimalValue(); // 成交额,即sum(每一笔成交价 * 该笔的成交量)
+
+              // https://huobiapi.github.io/docs/spot/v1/en/#market-candlestick
+              Kline.Builder klineBuilder = new Kline.Builder();
+              klineBuilder.currencyPair(currencyPair);
+              klineBuilder.id(id);
+              klineBuilder.open(open);
+              klineBuilder.close(close);
+              klineBuilder.high(high);
+              klineBuilder.low(low);
+              klineBuilder.timestamp(ts);
+              klineBuilder.volume(amount);
+              klineBuilder.quoteVolume(vol);
+              klineBuilder.count(count);
+              return klineBuilder.build();
             });
   }
 
