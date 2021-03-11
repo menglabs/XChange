@@ -7,6 +7,7 @@ import info.bitrich.xchangestream.kraken.dto.enums.KrakenSubscriptionName;
 import io.reactivex.Observable;
 import org.apache.commons.lang3.ArrayUtils;
 import org.knowm.xchange.currency.CurrencyPair;
+import org.knowm.xchange.dto.marketdata.Kline;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.marketdata.Trade;
@@ -46,6 +47,11 @@ public class KrakenStreamingMarketDataService implements StreamingMarketDataServ
     String channelName = getChannelName(KrakenSubscriptionName.ticker, currencyPair);
     return subscribe(channelName, MIN_DATA_ARRAY_SIZE, null)
         .map(arrayNode -> KrakenStreamingAdapters.adaptTickerMessage(currencyPair, arrayNode));
+  }
+
+  @Override
+  public Observable<Kline> getKline(CurrencyPair currencyPair, Object... args) {
+    return null;
   }
 
   @Override

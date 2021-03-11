@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.*;
 import org.knowm.xchange.bitmex.BitmexExchange;
 import org.knowm.xchange.currency.CurrencyPair;
+import org.knowm.xchange.dto.marketdata.Kline;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.marketdata.Trade;
@@ -149,6 +150,11 @@ public class BitmexStreamingMarketDataService implements StreamingMarketDataServ
               BitmexTicker bitmexTicker = s.toBitmexTicker();
               return bitmexTicker.toTicker();
             });
+  }
+
+  @Override
+  public Observable<Kline> getKline(CurrencyPair currencyPair, Object... args) {
+    return null;
   }
 
   @Override

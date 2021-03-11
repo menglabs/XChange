@@ -15,10 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.knowm.xchange.coinbasepro.dto.marketdata.CoinbaseProProductTicker;
 import org.knowm.xchange.coinbasepro.dto.marketdata.CoinbaseProTrade;
 import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.dto.marketdata.OrderBook;
-import org.knowm.xchange.dto.marketdata.Ticker;
-import org.knowm.xchange.dto.marketdata.Trade;
-import org.knowm.xchange.dto.marketdata.Trades;
+import org.knowm.xchange.dto.marketdata.*;
 
 /** Created by luca on 4/3/17. */
 public class CoinbaseProStreamingMarketDataService implements StreamingMarketDataService {
@@ -111,6 +108,11 @@ public class CoinbaseProStreamingMarketDataService implements StreamingMarketDat
             s ->
                 adaptTicker(
                     s.toCoinbaseProProductTicker(), s.toCoinbaseProProductStats(), currencyPair));
+  }
+
+  @Override
+  public Observable<Kline> getKline(CurrencyPair currencyPair, Object... args) {
+    return null;
   }
 
   @Override

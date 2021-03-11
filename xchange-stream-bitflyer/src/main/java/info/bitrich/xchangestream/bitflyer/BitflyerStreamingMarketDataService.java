@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
+import org.knowm.xchange.dto.marketdata.Kline;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.marketdata.Trade;
@@ -87,6 +88,11 @@ public class BitflyerStreamingMarketDataService implements StreamingMarketDataSe
                 });
 
     return tickerTransactions.map(BitflyerTicker::toTicker);
+  }
+
+  @Override
+  public Observable<Kline> getKline(CurrencyPair currencyPair, Object... args) {
+    return null;
   }
 
   @Override

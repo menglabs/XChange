@@ -19,10 +19,7 @@ import io.reactivex.Observable;
 import java.util.HashMap;
 import java.util.Map;
 import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.dto.marketdata.OrderBook;
-import org.knowm.xchange.dto.marketdata.Ticker;
-import org.knowm.xchange.dto.marketdata.Trade;
-import org.knowm.xchange.dto.marketdata.Trades;
+import org.knowm.xchange.dto.marketdata.*;
 
 /** Created by Lukas Zaoralek on 7.11.17. */
 public class BitfinexStreamingMarketDataService implements StreamingMarketDataService {
@@ -74,6 +71,11 @@ public class BitfinexStreamingMarketDataService implements StreamingMarketDataSe
             .map(s -> mapper.treeToValue(s, BitfinexWebSocketTickerTransaction.class));
 
     return subscribedChannel.map(s -> adaptTicker(s.toBitfinexTicker(), currencyPair));
+  }
+
+  @Override
+  public Observable<Kline> getKline(CurrencyPair currencyPair, Object... args) {
+    return null;
   }
 
   @Override

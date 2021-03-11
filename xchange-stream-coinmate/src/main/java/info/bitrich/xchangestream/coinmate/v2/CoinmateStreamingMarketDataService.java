@@ -11,6 +11,7 @@ import org.knowm.xchange.coinmate.CoinmateAdapters;
 import org.knowm.xchange.coinmate.dto.marketdata.CoinmateOrderBook;
 import org.knowm.xchange.coinmate.dto.marketdata.CoinmateOrderBookData;
 import org.knowm.xchange.currency.CurrencyPair;
+import org.knowm.xchange.dto.marketdata.Kline;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.marketdata.Trade;
@@ -46,6 +47,11 @@ public class CoinmateStreamingMarketDataService implements StreamingMarketDataSe
   public Observable<Ticker> getTicker(CurrencyPair currencyPair, Object... args) {
     // No live ticker
     throw new NotAvailableFromExchangeException();
+  }
+
+  @Override
+  public Observable<Kline> getKline(CurrencyPair currencyPair, Object... args) {
+    return null;
   }
 
   @Override

@@ -13,6 +13,7 @@ import info.bitrich.xchangestream.core.StreamingMarketDataService;
 import info.bitrich.xchangestream.service.netty.StreamingObjectMapperHelper;
 import io.reactivex.Observable;
 import org.knowm.xchange.currency.CurrencyPair;
+import org.knowm.xchange.dto.marketdata.Kline;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.marketdata.Trade;
@@ -55,6 +56,11 @@ class BTCMarketsStreamingMarketDataService implements StreamingMarketDataService
         .map(node -> mapper.treeToValue(node, BTCMarketsWebSocketTickerMessage.class))
         .filter(tickerEvent -> marketId.equals(tickerEvent.getMarketId()))
         .map(this::handleTickerMessage);
+  }
+
+  @Override
+  public Observable<Kline> getKline(CurrencyPair currencyPair, Object... args) {
+    return null;
   }
 
   @Override

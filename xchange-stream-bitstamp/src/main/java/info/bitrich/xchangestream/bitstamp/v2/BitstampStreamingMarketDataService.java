@@ -8,6 +8,7 @@ import io.reactivex.Observable;
 import org.knowm.xchange.bitstamp.BitstampAdapters;
 import org.knowm.xchange.bitstamp.dto.marketdata.BitstampOrderBook;
 import org.knowm.xchange.currency.CurrencyPair;
+import org.knowm.xchange.dto.marketdata.Kline;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.marketdata.Trade;
@@ -52,6 +53,11 @@ public class BitstampStreamingMarketDataService implements StreamingMarketDataSe
   public Observable<Ticker> getTicker(CurrencyPair currencyPair, Object... args) {
     return getOrderBook(currencyPair, args)
         .map(orderBook -> mapOrderBookToTicker(currencyPair, orderBook));
+  }
+
+  @Override
+  public Observable<Kline> getKline(CurrencyPair currencyPair, Object... args) {
+    return null;
   }
 
   private Ticker mapOrderBookToTicker(CurrencyPair currencyPair, OrderBook orderBook) {

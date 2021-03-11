@@ -11,10 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.dto.marketdata.OrderBook;
-import org.knowm.xchange.dto.marketdata.Ticker;
-import org.knowm.xchange.dto.marketdata.Trade;
-import org.knowm.xchange.dto.marketdata.Trades;
+import org.knowm.xchange.dto.marketdata.*;
 import org.knowm.xchange.hitbtc.v2.HitbtcAdapters;
 
 /** Created by Pavel Chertalev on 15.03.2018. */
@@ -77,6 +74,11 @@ public class HitbtcStreamingMarketDataService implements StreamingMarketDataServ
         .subscribeChannel(channelName)
         .map(s -> mapper.readValue(s.toString(), HitbtcWebSocketTickerTransaction.class))
         .map(s -> HitbtcAdapters.adaptTicker(s.getParams(), currencyPair));
+  }
+
+  @Override
+  public Observable<Kline> getKline(CurrencyPair currencyPair, Object... args) {
+    return null;
   }
 
   private String getChannelName(String entityName, String pair) {
