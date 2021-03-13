@@ -34,7 +34,19 @@ public class HuobiMarketDataService extends HuobiMarketDataServiceRaw implements
 
   @Override
   public List<Kline> getKlines(CurrencyPair currencyPair, Object... args) throws IOException {
-    return HuobiAdapters.adaptAllKlines(getHuobiKlines(currencyPair), currencyPair);
+    String period = "5min";
+    int size = 500;
+
+    if (args != null && args.length == 1) {
+      Object arg0 = args[0];
+      if (!(arg0 instanceof Integer) || arg0 == null || (int) arg0 < 1 || (int) arg0 > 2000) {
+        throw new ExchangeException("Argument 0 must be an Integer in the range [1, 2000]!");
+      } else {
+        size = (int) arg0;
+      }
+    }
+
+    return HuobiAdapters.adaptAllKlines(getHuobiKlines(currencyPair, period, size), currencyPair);
   }
 
   @Override

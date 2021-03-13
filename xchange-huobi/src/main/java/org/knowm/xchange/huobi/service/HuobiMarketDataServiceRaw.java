@@ -24,9 +24,9 @@ public class HuobiMarketDataServiceRaw extends HuobiBaseService {
     return checkResult(allTickerResult);
   }
 
-  public HuobiAllKline[] getHuobiKlines(CurrencyPair currencyPair) throws IOException {
+  public HuobiAllKline[] getHuobiKlines(CurrencyPair currencyPair, String period, int size) throws IOException {
     String huobiCurrencyPair = HuobiUtils.createHuobiCurrencyPair(currencyPair);
-    HuobiAllKlineResult tickerResult = huobi.getKlines(huobiCurrencyPair, "5min", 200);
+    HuobiAllKlineResult tickerResult = huobi.getKlines(huobiCurrencyPair, period, size);
     return checkResult(tickerResult);
   }
 

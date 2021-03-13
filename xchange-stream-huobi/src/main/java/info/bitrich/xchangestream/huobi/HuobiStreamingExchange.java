@@ -1,6 +1,7 @@
 package info.bitrich.xchangestream.huobi;
 
 import info.bitrich.xchangestream.core.ProductSubscription;
+import info.bitrich.xchangestream.core.StreamingAccountService;
 import info.bitrich.xchangestream.core.StreamingExchange;
 import info.bitrich.xchangestream.core.StreamingMarketDataService;
 import info.bitrich.xchangestream.service.netty.ConnectionStateModel.State;
@@ -15,6 +16,7 @@ public class HuobiStreamingExchange extends HuobiExchange implements StreamingEx
 
   private HuobiStreamingService streamingService;
   private HuobiStreamingMarketDataService streamingMarketDataService;
+  private HuobiStreamingAccountService streamingAccountService;
 
   @Override
   protected void initServices() {
@@ -27,6 +29,7 @@ public class HuobiStreamingExchange extends HuobiExchange implements StreamingEx
     this.streamingService = new HuobiStreamingService(aws ? API_URI_AWS : API_BASE_URI);
     this.streamingService.useCompressedMessages(true);
     streamingMarketDataService = new HuobiStreamingMarketDataService(streamingService);
+    streamingAccountService = new HuobiStreamingAccountService(streamingService);
   }
 
   @Override
@@ -62,6 +65,10 @@ public class HuobiStreamingExchange extends HuobiExchange implements StreamingEx
   @Override
   public StreamingMarketDataService getStreamingMarketDataService() {
     return streamingMarketDataService;
+  }
+
+  public StreamingAccountService getStreamingAccountService() {
+    return streamingAccountService;
   }
 
   @Override
