@@ -202,7 +202,6 @@
     <module>xchange-stream-gemini-v2</module>
     <module>xchange-stream-hitbtc</module>
     <module>xchange-stream-huobi</module>
-	<module>xchange-stream-huobi-v2</module>
     <module>xchange-stream-kraken</module>
     <module>xchange-stream-lgo</module>
     <module>xchange-stream-okcoin</module>
